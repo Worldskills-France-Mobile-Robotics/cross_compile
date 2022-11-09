@@ -74,21 +74,23 @@ def parse_args(args: List[str]) -> argparse.Namespace:
         help='Path of the colcon workspace to be cross-compiled. Contains "src" directory.')
     parser.add_argument(
         '-a', '--arch',
-        required=True,
+        required=False,
         type=str,
+        default='aarch64',
         choices=SUPPORTED_ARCHITECTURES,
         help='Target architecture')
     parser.add_argument(
         '-d', '--rosdistro',
         required=False,
         type=str,
-        default='dashing',
+        default='humble',
         choices=SUPPORTED_ROS_DISTROS + SUPPORTED_ROS2_DISTROS,
         help='Target ROS distribution')
     parser.add_argument(
         '-o', '--os',
-        required=True,
+        required=False,
         type=str,
+        default='ubuntu',
         # NOTE: not specifying choices here, as different distros may support different lists
         help='Target OS')
     parser.add_argument(
