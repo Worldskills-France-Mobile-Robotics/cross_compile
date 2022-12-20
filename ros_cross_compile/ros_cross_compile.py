@@ -42,7 +42,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 _PIPELINE = [
-    CollectDependencyListStage(),
+    # CollectDependencyListStage(),
     CreateSysrootStage(),
     EmulatedDockerBuildStage(),
     PackageRuntimeImageStage(),
