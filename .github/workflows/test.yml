@@ -4,10 +4,6 @@ on:
   push:
     branches:
       - master
-  schedule:
-    # Run every day. This helps detect flakiness,
-    # and broken external dependencies.
-    - cron:  '0 0 * * *'
 
 jobs:
   test_macOS:
@@ -15,11 +11,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.6, 3.7, 3.8]
+        python-version: [3.7, 3.8]
     steps:
     - name: Checkout sources
       uses: actions/checkout@v3
-    - uses: actions/setup-python@v3
+    - uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
         architecture: x64
@@ -33,13 +29,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.6, 3.7, 3.8]
+        python-version: [3.7, 3.8]
     steps:
     - name: Checkout sources
       uses: actions/checkout@v3
     - name: Install dependencies
       run: sudo apt-get update && sudo apt-get install -y qemu-user-static
-    - uses: actions/setup-python@v3
+    - uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
         architecture: x64
@@ -47,7 +43,7 @@ jobs:
       run: pip3 install tox
     - name: Run tests
       run: tox -e py
-    - uses: codecov/codecov-action@v3.0.0
+    - uses: codecov/codecov-action@v3.1.1
       with:
         file: coverage.xml
         flags: unittests
